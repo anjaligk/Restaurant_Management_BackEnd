@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.management.dto.ReservationDTO;
 
+
 @FeignClient(name = "RESERVATION", path = "/reservation")
 public interface ReservationFeignClient {
 
@@ -20,5 +21,5 @@ public interface ReservationFeignClient {
 	public List<ReservationDTO> getAllReservationByDateandTime(@RequestParam("date") LocalDate date,
 					@RequestParam("time") LocalTime time );
 
-	
+
 }

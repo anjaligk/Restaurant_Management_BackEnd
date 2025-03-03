@@ -60,8 +60,14 @@ public class ReservationController {
 	public List<Reservation> getAllReservationByDateandTime(@RequestParam("date") LocalDate date,
 					@RequestParam("time") LocalTime time )
 	{
+		// Debug log
+	    System.out.println("ReservationController - Date: " + date + ", Time: " + time);
 		return reservationService.getReservationsForDateTime(date,time);
 	}
-
+	
+	@GetMapping("/getByCustomerId/{customerId}")
+	public List<Reservation> getReservationsByCustomerId(@PathVariable int customerId) {
+	    return reservationService.getReservationsByCustomerId(customerId);
+	}
 
 }

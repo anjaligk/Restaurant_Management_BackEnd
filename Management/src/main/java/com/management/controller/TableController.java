@@ -1,5 +1,6 @@
 package com.management.controller;
 
+import java.io.Console;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -58,6 +59,11 @@ public class TableController {
 	@GetMapping("/getReservationByDateAndTime")
 	public List<ReservationDTO> getReservationsForDateTime(@RequestParam("date") LocalDate date,
 			@RequestParam("time") LocalTime time) {
+		// Debug log
+	    System.out.println("TableController - Date: " + date + ", Time: " + time);
 		return tableService.getReservationsForDateTime(date, time);
 	}
+	
+
+
 }

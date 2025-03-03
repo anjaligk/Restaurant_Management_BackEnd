@@ -12,4 +12,5 @@ import com.reservation.entity.Reservation;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 	List<Reservation> findByReservationDateAndReservationTime(LocalDate reservationDate, LocalTime reservationTime);
+	List<Reservation> findByCustomerId(int customerId);
 }

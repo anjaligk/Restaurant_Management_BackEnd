@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int id;	
+    private Long id;	
     private String name;
     private String email;
     private String password;
     private String roles;
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {

@@ -21,4 +21,6 @@ public interface ReservationService {
 	List<TableDTO> getAvailableTablesForDateTime(LocalDate date, LocalTime time);
 	
 	public List<Reservation> getReservationsForDateTime(LocalDate date, LocalTime time);
+	
+	public List<Reservation> getReservationsByCustomerId(int customerId);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dto.AuthRequest;
+import com.dto.AuthResponseDto;
 import com.entity.UserInfo;
 import com.repository.UserInfoRepository;
 import com.service.JwtService;
@@ -21,7 +22,7 @@ import com.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
@@ -45,18 +46,22 @@ public class AuthController {
         return service.addUser(userInfo);
     }
 
-
-
-    @PostMapping("/authenticate")		//http://localhost:9090/auth/authenticate
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        if (authentication.isAuthenticated()) {
-        	UserInfo obj = repo.findByName(authRequest.getUsername()).orElse(null);
-            return jwtService.generateToken(authRequest.getUsername(),obj.getRoles());
-        } else {
-            throw new UsernameNotFoundException("invalid user request !");
-        }
-    }
+    
+    @PostMapping("/authenticate") 
+    public AuthResponseDto authenticateAndGetToken(@RequestBody AuthRequest authRequest) {   
+    	Authentication authentication = authenticationManager.authenticate(    
+    		new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())); 
+    	if (authentication.isAuthenticated()) {
+    		UserInfo obj = repo.findByName(authRequest.getUsername()).orElse(null);   
+	    	if (obj != null) {
+	    		String token = jwtService.generateToken(authRequest.getUsername(), obj.getRoles());           
+	    		return new AuthResponseDto(token, obj.getId() ,obj.getRoles());
+	    	} else {
+	    		throw new UsernameNotFoundException("User not found!");
+	    	}
+	    } else {
+	    	throw new UsernameNotFoundException("Invalid user request!");}}
+    
     
     @GetMapping("/getroles/{username}")		//http://localhost:9090/auth/getroles/{username}
     public String getRoles(@PathVariable String username)

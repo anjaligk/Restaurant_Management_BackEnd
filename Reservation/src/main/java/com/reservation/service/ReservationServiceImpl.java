@@ -2,14 +2,17 @@ package com.reservation.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.reservation.dto.TableDTO;
 import com.reservation.entity.Reservation;
@@ -69,6 +72,27 @@ public class ReservationServiceImpl implements ReservationService {
 		else
 			throw new ReservationNotFound("Reservation with the given Id is not found !!!!!");
 	}
+	
+//	public String formatDateString(String date) {
+//	    try {
+//	        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yy");
+//	        DateTimeFormatter outputFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+//
+//	        LocalDate parsedDate = LocalDate.parse(date, inputFormatter);
+//	        return parsedDate.format(outputFormatter);
+//	    } catch (DateTimeParseException e) {
+//	        throw new IllegalArgumentException("Invalid date format, expected format is M/d/yy.");
+//	    }
+	
+//	private LocalDate convertDateStringToLocalDate(String dateStr) {
+//	    try {
+//	        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yy");
+//	        LocalDate parsedDate = LocalDate.parse(dateStr, inputFormatter);
+//	        return parsedDate;
+//	    } catch (DateTimeParseException e) {
+//	        throw new IllegalArgumentException("Invalid date format, expected format is M/d/yy.");
+//	    }
+//	}
 
 	@Override
 	public List<Reservation> getAllReservation() {
@@ -76,6 +100,8 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	public List<Reservation> getReservationsForDateTime(LocalDate date, LocalTime time) {
+		 // Debug log
+	    System.out.println("ReservationServiceImpl - Date: " + date + ", Time: " + time);
 		return reservationRepository.findByReservationDateAndReservationTime( date, time);
 	}
 	
@@ -91,6 +117,11 @@ public class ReservationServiceImpl implements ReservationService {
 		// Filter out booked tables
 		return allTables.stream().filter(table -> !bookedTableIds.contains(table.getTableId()))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Reservation> getReservationsByCustomerId(int customerId) {
+		return reservationRepository.findByCustomerId(customerId);
 	}
 
 }

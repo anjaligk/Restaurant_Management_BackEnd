@@ -53,6 +53,8 @@ public class TableServiceImpl implements TableService {
 	
 	@Override
 	public List<ReservationDTO> getReservationsForDateTime(LocalDate date, LocalTime time) {
+		// Debug log
+	    System.out.println("TableServiceImpl - Date: " + date + ", Time: " + time);
 		return reservationFeignClient.getAllReservationByDateandTime(date, time);
 	}
 
