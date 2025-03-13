@@ -23,7 +23,7 @@ public class ManagementLoggingAspect {
 		logger.info("Entering method: {}", joinPoint.getSignature().getName());
         logger.info("Arguments: {}", Arrays.toString(joinPoint.getArgs()));
   }
-}
+}  
 
 	@AfterReturning(pointcut = "execution(* com.management.service.*.*(..))", returning = "result")
 	public void logAfterReturning(JoinPoint joinPoint, Object result) {

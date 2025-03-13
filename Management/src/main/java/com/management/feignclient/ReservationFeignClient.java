@@ -21,5 +21,4 @@ public interface ReservationFeignClient {
 	public List<ReservationDTO> getAllReservationByDateandTime(@RequestParam("date") LocalDate date,
 					@RequestParam("time") LocalTime time );
 
-
 }

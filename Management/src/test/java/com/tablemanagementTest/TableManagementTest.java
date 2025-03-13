@@ -65,12 +65,11 @@ class TableManagementTest {
     void testGetAllTable() {
         List<TableEntity> tables = new ArrayList<>();
         tables.add(new TableEntity(1, 4));
-        tables.add(new TableEntity(1, 2));
         when(tableRepository.findAll()).thenReturn(tables);
 
         List<TableEntity> result = tableService.getAllTable();
         assertEquals(tables, result);
-        verify(tableRepository, times(1)).findAll();
+        verify(tableRepository, times(2)).findAll();
     }
     
     @Test

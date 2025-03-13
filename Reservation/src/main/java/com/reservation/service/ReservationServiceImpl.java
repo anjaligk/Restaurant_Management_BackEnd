@@ -73,26 +73,6 @@ public class ReservationServiceImpl implements ReservationService {
 			throw new ReservationNotFound("Reservation with the given Id is not found !!!!!");
 	}
 	
-//	public String formatDateString(String date) {
-//	    try {
-//	        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yy");
-//	        DateTimeFormatter outputFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
-//
-//	        LocalDate parsedDate = LocalDate.parse(date, inputFormatter);
-//	        return parsedDate.format(outputFormatter);
-//	    } catch (DateTimeParseException e) {
-//	        throw new IllegalArgumentException("Invalid date format, expected format is M/d/yy.");
-//	    }
-	
-//	private LocalDate convertDateStringToLocalDate(String dateStr) {
-//	    try {
-//	        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yy");
-//	        LocalDate parsedDate = LocalDate.parse(dateStr, inputFormatter);
-//	        return parsedDate;
-//	    } catch (DateTimeParseException e) {
-//	        throw new IllegalArgumentException("Invalid date format, expected format is M/d/yy.");
-//	    }
-//	}
 
 	@Override
 	public List<Reservation> getAllReservation() {
@@ -100,7 +80,6 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	public List<Reservation> getReservationsForDateTime(LocalDate date, LocalTime time) {
-		 // Debug log
 	    System.out.println("ReservationServiceImpl - Date: " + date + ", Time: " + time);
 		return reservationRepository.findByReservationDateAndReservationTime( date, time);
 	}
